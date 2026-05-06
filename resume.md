@@ -1,6 +1,6 @@
 ---
 output: ./
-pages: 2
+pages: 1
 style:
   font-size: 10pt
 css:
@@ -25,7 +25,7 @@ San Diego, CA | [+1 (619) 701-0974](tel:+16197010974) | [guillochon@gmail.com](m
 
 ## Work Experience
 
-### **Esri** — Principal Data Scientist, San Diego, CA || Jan 2021 - Present (5 years)
+### **Esri** — Principal Data Scientist <span class="work-location">San Diego, CA (Home Office)</span> || Jan 2021 - Present (5 years)
 
 - <span style="font-weight: 600;">Generative AI & LLM Tooling:</span> Contributed to generative AI workflows by implementing tools that integrate large language models for image interrogation, free-form text object detection, and automated object replacement.
 - <span style="font-weight: 600;">Advanced Imagery & Zero-Shot Detection:</span> Spearheaded advanced imagery analysis initiatives utilizing zero-shot detection and conducted comprehensive statistical evaluations on the resulting AI outputs.
@@ -38,16 +38,16 @@ San Diego, CA | [+1 (619) 701-0974](tel:+16197010974) | [guillochon@gmail.com](m
 - <span style="font-weight: 600;">NLP & Document Parsing:</span> Authored parsing tools to analyze scanned legal documents and automatically extract and map the geographic regions described within the text.
 - <span style="font-weight: 600;">Leadership & External Enablement:</span> Directed analyst teams to generate high-quality satellite imagery datasets and delivered technical workshops and presentations on AI enablement to external organizations.
 
-### **Berkshire Grey** — Principal Data Scientist & Robotics Engineer, Lexington, MA || Oct 2018 - Dec 2020 (2 years)
+### **Berkshire Grey** — Principal Data Scientist <span class="work-location">Lexington, MA</span> || Oct 2018 - Dec 2020 (2 years)
 
 - <span style="font-weight: 600;">Robotics Software Stack:</span> Led optimization efforts of Python/ROS software stack used for pick and place in a multi-component robotics system, including robotic arms, high-performance conveyors, and automated shuttles.
 - <span style="font-weight: 600;">Motion Planning & Parameter Prediction:</span> Created and integrated parameter prediction to select optimal robotic motions for unseen products on demand.
 - <span style="font-weight: 600;">Bayesian Sensing & Pick Verification:</span> Developed online Bayesian analysis of data from sensors integrated into the picking system to dynamically determine how many items the robotic arm lifted.
 - <span style="font-weight: 600;">Operations Analytics:</span> Curated a dashboard of key performance indicators (KPIs) for the deployed robotic system via the ELK Stack.
 
-### **Harvard-Smithsonian** — NASA Einstein Fellow & ITC Fellow, Cambridge, MA || Sept 2013 - Aug 2018 (5 years)
+### **Harvard-Smithsonian** — NASA Einstein/ITC Fellow <span class="work-location">Cambridge, MA</span> || Sept 2013 - Aug 2018 (5 years)
 
-- <span style="font-weight: 600;">Research Leadership:</span> Technical lead of an eight-person research team of undergraduate/graduate students and postdocs resulting in [dozens of completed scientific projects](https://ui.adsabs.harvard.edu/search/q=guillochon%2C%20james&sort=date%20desc%2C%20bibcode%20desc&p_=0) with 4k+ citations.
+- <span style="font-weight: 600;">Research Leadership:</span> Technical lead of an eight-person research team of undergraduate/graduate students and postdocs resulting in [dozens of completed scientific projects](https://ui.adsabs.harvard.edu/search/q=guillochon%2C%20james&sort=date%20desc%2C%20bibcode%20desc&p_=0) with 10k+ citations.
 - <span style="font-weight: 600;">Science Communication:</span> Appeared on the [NOVA television program](http://www.pbs.org/wgbh/nova/space/black-hole-apocalypse.html) in 2018, describing data analysis by my group to measure a black hole's mass using a recently destroyed star.
 - <span style="font-weight: 600;">MOSFiT & Bayesian Modeling:</span> Developed [MOSFiT](https://mosfit.rtfd.io), a Bayesian engine to infer the most likely analytical models for time-series data.
 - <span style="font-weight: 600;">Open Astronomy Catalogs:</span> Led creation of the [Open Astronomy Catalogs](https://astrocats.space), a platform for sharing astronomical data, with a user-facing frontend and an API backend to serve data quickly to users.

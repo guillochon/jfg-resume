@@ -4,3 +4,29 @@
 		max-width: 210mm;
 	}
 }
+
+/* Slightly tighter vertical rhythm (helps single-page fit). */
+:root {
+	--line-height: 1.42;
+	--gap: 0.92;
+	--section-gap: 8px;
+	--entry-gap: 4px;
+	--row-gap: 1px;
+}
+
+h2 {
+	margin-bottom: 4px;
+}
+
+/* Work experience: location under title, subdued. */
+.work-location {
+	font-size: 0.88em;
+	font-weight: 400;
+	color: #888;
+	line-height: 1.35;
+	margin-top: 0.18em;
+}
+
+h3:has(.work-location) {
+	align-items: flex-start;
+}
