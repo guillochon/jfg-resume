@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Environment secrets (e.g. ADS_KEY) are only available when the job declares the environment.
+    environment: github-pages
     env:
       ADS_KEY: ${{ secrets.ADS_KEY }}
     steps:
