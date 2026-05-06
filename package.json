@@ -5,9 +5,9 @@
   "description": "James Guillochon resume build environment",
   "scripts": {
     "setup": "playwright install chromium",
-    "build": "resumx resume.md --format html --output index && resumx resume.md --format pdf --output resume",
-    "watch": "resumx resume.md --watch --format pdf,html --output index",
-    "build:pages": "resumx resume.md --format html --output index && resumx resume.md --format pdf --output resume"
+    "build": "node scripts/render-resume.mjs",
+    "watch": "node scripts/render-resume.mjs --watch",
+    "build:pages": "node scripts/render-resume.mjs"
   },
   "devDependencies": {
     "@resumx/resumx": "^0.1.0",

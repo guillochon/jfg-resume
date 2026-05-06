@@ -11,15 +11,17 @@ css:
 
 San Diego, CA | [+1 (619) 701-0974](tel:+16197010974) | [guillochon@gmail.com](mailto:guillochon@gmail.com) | [LinkedIn](https://www.linkedin.com/in/guillochon) | [GitHub](https://github.com/guillochon) | [🎓 Google Scholar](https://scholar.google.com/citations?user=QXTYwTcAAAAJ)
 
+{{ ads_stats_line }}
+
 ## Education
 
 ### **Harvard** <span style="font-weight: 400;">— Postdoctoral Scholar, Astronomy — Cambridge, MA</span> || June 2018
 
+### **Insight Data Science** <span style="font-weight: 400;">— Fellow, Data Science — Boston, MA</span> || June 2018
+
 ### **UC Santa Cruz** <span style="font-weight: 400;">— PhD, Astronomy — Santa Cruz, CA</span> || June 2013
 
 ### **UC Irvine** <span style="font-weight: 400;">— BS, Physics — Irvine, CA</span> || June 2005
-
-### **Insight Data Science** <span style="font-weight: 400;">— Fellow, Data Science — Boston, MA</span> || June 2018
 
 ## Work Experience
 

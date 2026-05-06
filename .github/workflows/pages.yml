@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ADS_KEY: ${{ secrets.ADS_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
