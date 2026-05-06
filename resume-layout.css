@@ -1,0 +1,6 @@
+/* Limit browser preview width to the same page width Resumx uses for PDF (A4). */
+@media screen {
+	body {
+		max-width: 210mm;
+	}
+}

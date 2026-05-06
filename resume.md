@@ -3,6 +3,8 @@ output: ./
 pages: 2
 style:
   font-size: 10pt
+css:
+  - resume-layout.css
 ---
 
 # James Guillochon
