@@ -1,0 +1,16 @@
+{
+  "name": "jfg-resume",
+  "private": true,
+  "version": "1.0.0",
+  "description": "James Guillochon resume build environment",
+  "scripts": {
+    "setup": "playwright install chromium",
+    "build": "resumx resume.md --format html --output index && resumx resume.md --format pdf --output resume",
+    "watch": "resumx resume.md --watch --format pdf,html --output index",
+    "build:pages": "resumx resume.md --format html --output index && resumx resume.md --format pdf --output resume"
+  },
+  "devDependencies": {
+    "@resumx/resumx": "^0.1.0",
+    "playwright": "^1.59.1"
+  }
+}

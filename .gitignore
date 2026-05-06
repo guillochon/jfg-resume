@@ -1,0 +1,5 @@
+node_modules/
+output/
+.DS_Store
+# `npm run watch` uses a single output basename and still emits index.pdf
+index.pdf
