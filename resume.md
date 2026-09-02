@@ -27,6 +27,7 @@ San Diego, CA | [+1 (619) 701-0974](tel:+16197010974) | [guillochon@gmail.com](m
 
 ### **Esri** — Principal Data Scientist <span class="work-location">San Diego, CA (Home Office)</span> || Jan 2021 - Present (5 years)
 
+- <span style="font-weight: 600;">Leadership & AI Strategy:</span> Co-led the AI & Analytics Tech Center, shaped Professional Services AI strategy and customer-readiness materials, mentored staff, and supported bids, workshops, and customer scoping.
 - <span style="font-weight: 600;">Generative AI & LLM Tooling:</span> Contributed to generative AI workflows by implementing tools that integrate large language models for image interrogation, free-form text object detection, and automated object replacement.
 - <span style="font-weight: 600;">Deep Learning Imagery Analysis:</span> Built deep learning pipelines for satellite and aerial imagery covering zero-shot detection, land classification, algal-bloom prediction, feature extraction, and time-series monitoring.
 - <span style="font-weight: 600;">3D Scene & LIDAR Optimization:</span> Optimized 3D LIDAR processing pipelines and applied PointCNN models alongside advanced AI algorithms and image embeddings to identify infrastructural assets within 3D scenes.
@@ -36,7 +37,6 @@ San Diego, CA | [+1 (619) 701-0974](tel:+16197010974) | [guillochon@gmail.com](m
 - <span style="font-weight: 600;">Automated Anomaly Detection:</span> Designed and deployed automated solutions to actively monitor open-source map catalogs and identify suspicious changesets.
 - <span style="font-weight: 600;">NLP & Document Parsing:</span> Authored parsing tools to analyze scanned legal documents and automatically extract and map the geographic regions described within the text.
 - <span style="font-weight: 600;">PS AI Enablement Tooling:</span> Built reusable catalogs and assistants for staff skills discovery, engagement battle cards, code-sample reuse, and customer-needs drafting to accelerate proposal and delivery work.
-- <span style="font-weight: 600;">Leadership & External Enablement:</span> Directed analyst teams to generate high-quality satellite imagery datasets and delivered technical workshops and presentations on AI enablement to external organizations.
 
 ### **Berkshire Grey** — Principal Data Scientist <span class="work-location">Lexington, MA</span> || Oct 2018 - Dec 2020 (2 years)
 
