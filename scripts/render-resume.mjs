@@ -219,14 +219,40 @@ const SKILLS_LAYOUT_SCRIPT = `
 	};
 	const layoutSkillBullets = () => {
 		enhanceSkills();
-		const dots = [...document.querySelectorAll('#skills .skill-dot')];
-		for (const dot of dots) dot.hidden = false;
-		for (const dot of dots) {
-			const label = dot.previousElementSibling;
-			const nextLabel = dot.parentElement?.nextElementSibling?.querySelector('.skill-label');
-			if (!label || !nextLabel) continue;
-			if (Math.abs(label.getBoundingClientRect().top - nextLabel.getBoundingClientRect().top) > 2) {
-				dot.hidden = true;
+		const ul = document.querySelector('#skills ul');
+		if (!ul) return;
+		ul.querySelectorAll('.skill-break').forEach((el) => el.remove());
+		for (const dot of ul.querySelectorAll('.skill-dot')) dot.hidden = false;
+
+		const visibleItems = () =>
+			[...ul.querySelectorAll('.skill-label, .skill-dot')].filter((el) => !el.hidden);
+
+		for (let pass = 0; pass < 6; pass++) {
+			const items = visibleItems();
+			const wraps = [];
+			for (let i = 0; i < items.length - 1; i++) {
+				if (items[i + 1].getBoundingClientRect().top - items[i].getBoundingClientRect().top > 2) {
+					wraps.push(i);
+				}
+			}
+			if (!wraps.length) break;
+
+			for (const i of [...wraps].reverse()) {
+				const before = items[i];
+				const after = items[i + 1];
+				if (before.classList.contains('skill-dot')) before.hidden = true;
+				if (after.classList.contains('skill-dot')) after.hidden = true;
+
+				const firstSkill = after.classList.contains('skill-label')
+					? after
+					: after.parentElement?.nextElementSibling?.querySelector('.skill-label');
+				if (!firstSkill || firstSkill.previousElementSibling?.classList.contains('skill-break')) {
+					continue;
+				}
+				const br = document.createElement('span');
+				br.className = 'skill-break';
+				br.setAttribute('aria-hidden', 'true');
+				firstSkill.before(br);
 			}
 		}
 	};
@@ -259,6 +285,8 @@ async function printResumePdf(htmlPath, pdfPath) {
 	await page.setViewportSize({ width: 794, height: 1123 });
 	await page.evaluate(async () => {
 		if (document.fonts) await document.fonts.ready;
+		await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+		if (window.layoutSkillBullets) window.layoutSkillBullets();
 		await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
 		if (window.layoutSkillBullets) window.layoutSkillBullets();
 	});
