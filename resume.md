@@ -25,7 +25,38 @@ San Diego, CA | [+1 (619) 701-0974](tel:+16197010974) | [guillochon@gmail.com](m
 
 ## Skills
 
-<p class="skills-line">3D LIDAR • Agentic AI • ArcGIS API for Python • ArcGIS Pro • ArcPy • Azure OpenAI • Bayesian Analysis • Bayesian Modeling • CLIs • Deep Learning • ELK Stack • GDAL/rasterio • Generative AI • GeoPandas • Go • Jupyter • LangChain • LLM • MCP • Motion Planning • OpenCV • Parameter Prediction • PDAL • PointCNN • Python • PyTorch • Research Leadership • ROS • Science Communication • scikit-learn • scipy • Tesseract • Text Object Detection</p>
+- Agentic AI
+- ArcGIS API for Python
+- ArcGIS Pro
+- ArcPy
+- Azure OpenAI
+- Bayesian Analysis
+- Bayesian Modeling
+- CLIs
+- Deep Learning
+- ELK Stack
+- GDAL/rasterio
+- Generative AI
+- GeoPandas
+- Go
+- Jupyter
+- LangChain
+- LIDAR
+- LLM
+- MCP
+- Motion Planning
+- OpenCV
+- Parameter Prediction
+- PDAL
+- PointCNN
+- Python
+- PyTorch
+- Research Leadership
+- ROS
+- Science Communication
+- scikit-learn
+- scipy
+- Tesseract
 
 ## Work Experience
 

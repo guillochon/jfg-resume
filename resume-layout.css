@@ -18,10 +18,37 @@ h2 {
 	margin-bottom: 3px;
 }
 
-.skills-line {
+/* Inline wrapping skills: mid-dots live in the column gap. The first
+   item on a wrapped line hangs its dot left of the list, then overflow
+   clips it so lines never start or end with a bullet. */
+#skills ul {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	column-gap: 1.1em;
+	row-gap: 0.12em;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 	font-size: 0.86em;
 	line-height: 1.35;
+}
+
+#skills li {
+	position: relative;
+	white-space: nowrap;
 	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#skills li + li::before {
+	content: "•";
+	position: absolute;
+	left: -0.72em;
+	width: 0.35em;
+	text-align: center;
 }
 
 /* Work experience: location under title, subdued. */
