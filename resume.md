@@ -2,7 +2,7 @@
 output: ./
 pages: 1
 style:
-  font-size: 10pt
+  font-size: 9.4pt
 css:
   - resume-layout.css
 ---
@@ -22,6 +22,10 @@ San Diego, CA | [+1 (619) 701-0974](tel:+16197010974) | [guillochon@gmail.com](m
 ### **UC Santa Cruz** <span style="font-weight: 400;">— PhD, Astronomy — Santa Cruz, CA</span> || June 2013
 
 ### **UC Irvine** <span style="font-weight: 400;">— BS, Physics — Irvine, CA</span> || June 2005
+
+## Skills
+
+<p class="skills-line">Generative AI • LLM • Deep Learning • Image Interrogation • Text Object Detection • Automated Object Replacement • 3D LIDAR • PointCNN • MCP • CLIs • Agentic AI • MCP Servers • Model Serving • Image AI Proxying • Tool Orchestration • Python • Robotics • Motion Planning • Parameter Prediction • Bayesian Analysis • ELK Stack • Research Leadership • Science Communication • MOSFiT • Bayesian Modeling • Open Astronomy Catalogs • API</p>
 
 ## Work Experience
 
