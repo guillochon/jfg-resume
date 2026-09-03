@@ -48,9 +48,14 @@ h2 {
 #skills li + li::before {
 	content: "•";
 	position: absolute;
-	left: -0.72em;
+	left: 0;
 	width: 0.35em;
 	text-align: center;
+	transform: translateX(calc(-1 * var(--bullet-offset, 0.55em) - 50%));
+}
+
+#skills li.skills-row-start::before {
+	content: none;
 }
 
 /* Work experience: location under title, subdued. */

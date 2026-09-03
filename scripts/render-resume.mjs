@@ -3,9 +3,9 @@
  * NASA ADS first-author stats, then runs Resumx for HTML + PDF (or watch).
  */
 import { spawnSync, spawn } from 'node:child_process';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = join(__dirname, '..');
@@ -193,6 +193,67 @@ function runResumx(format, output, varArgs, watch) {
 	if (r.status !== 0) process.exit(r.status ?? 1);
 }
 
+const SKILLS_LAYOUT_SCRIPT = `
+<script>
+(() => {
+	const layoutSkillBullets = () => {
+		const items = [...document.querySelectorAll('#skills li')];
+		for (const li of items) {
+			li.classList.remove('skills-row-start');
+			li.style.removeProperty('--bullet-offset');
+		}
+		for (let i = 1; i < items.length; i++) {
+			const prev = items[i - 1].getBoundingClientRect();
+			const cur = items[i].getBoundingClientRect();
+			if (Math.abs(prev.top - cur.top) > 2) {
+				items[i].classList.add('skills-row-start');
+				continue;
+			}
+			const gap = Math.max(0, cur.left - prev.right);
+			items[i].style.setProperty('--bullet-offset', gap / 2 + 'px');
+		}
+	};
+	window.layoutSkillBullets = layoutSkillBullets;
+	const run = () => layoutSkillBullets();
+	if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+	else run();
+	window.addEventListener('resize', run);
+})();
+</script>
+`;
+
+function injectSkillsLayoutScript(htmlPath) {
+	let html = readFileSync(htmlPath, 'utf8');
+	if (html.includes('layoutSkillBullets')) return;
+	if (!html.includes('</body>')) {
+		html += SKILLS_LAYOUT_SCRIPT;
+	} else {
+		html = html.replace('</body>', `${SKILLS_LAYOUT_SCRIPT}</body>`);
+	}
+	writeFileSync(htmlPath, html);
+}
+
+async function printResumePdf(htmlPath, pdfPath) {
+	const { chromium } = await import('playwright');
+	const browser = await chromium.launch();
+	const page = await browser.newPage();
+	await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
+	await page.emulateMedia({ media: 'print' });
+	await page.setViewportSize({ width: 794, height: 1123 });
+	await page.evaluate(async () => {
+		if (document.fonts) await document.fonts.ready;
+		await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+		if (window.layoutSkillBullets) window.layoutSkillBullets();
+	});
+	await page.pdf({
+		path: pdfPath,
+		format: 'A4',
+		printBackground: true,
+		preferCSSPageSize: true,
+	});
+	await browser.close();
+}
+
 async function main() {
 	loadDotEnv();
 	const watch = process.argv.includes('--watch');
@@ -205,7 +266,10 @@ async function main() {
 	}
 
 	runResumx('html', 'index', varPair, false);
-	runResumx('pdf', 'resume', varPair, false);
+	const htmlPath = join(repoRoot, 'index.html');
+	injectSkillsLayoutScript(htmlPath);
+	await printResumePdf(htmlPath, join(repoRoot, 'resume.pdf'));
+	console.log('  PDF ✓\n');
 }
 
 main().catch((err) => {
