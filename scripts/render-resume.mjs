@@ -196,21 +196,38 @@ function runResumx(format, output, varArgs, watch) {
 const SKILLS_LAYOUT_SCRIPT = `
 <script>
 (() => {
-	const layoutSkillBullets = () => {
-		const items = [...document.querySelectorAll('#skills li')];
-		for (const li of items) {
-			li.classList.remove('skills-row-start');
-			li.style.removeProperty('--bullet-offset');
-		}
-		for (let i = 1; i < items.length; i++) {
-			const prev = items[i - 1].getBoundingClientRect();
-			const cur = items[i].getBoundingClientRect();
-			if (Math.abs(prev.top - cur.top) > 2) {
-				items[i].classList.add('skills-row-start');
-				continue;
+	const enhanceSkills = () => {
+		const ul = document.querySelector('#skills ul');
+		if (!ul || ul.dataset.skillsReady) return;
+		ul.dataset.skillsReady = '1';
+		const items = [...ul.querySelectorAll('li')];
+		items.forEach((li, i) => {
+			const text = li.textContent.trim();
+			li.textContent = '';
+			const label = document.createElement('span');
+			label.className = 'skill-label';
+			label.textContent = text;
+			li.appendChild(label);
+			if (i < items.length - 1) {
+				const dot = document.createElement('span');
+				dot.className = 'skill-dot';
+				dot.setAttribute('aria-hidden', 'true');
+				dot.textContent = '•';
+				li.appendChild(dot);
 			}
-			const gap = Math.max(0, cur.left - prev.right);
-			items[i].style.setProperty('--bullet-offset', gap / 2 + 'px');
+		});
+	};
+	const layoutSkillBullets = () => {
+		enhanceSkills();
+		const dots = [...document.querySelectorAll('#skills .skill-dot')];
+		for (const dot of dots) dot.hidden = false;
+		for (const dot of dots) {
+			const label = dot.previousElementSibling;
+			const nextLabel = dot.parentElement?.nextElementSibling?.querySelector('.skill-label');
+			if (!label || !nextLabel) continue;
+			if (Math.abs(label.getBoundingClientRect().top - nextLabel.getBoundingClientRect().top) > 2) {
+				dot.hidden = true;
+			}
 		}
 	};
 	window.layoutSkillBullets = layoutSkillBullets;
@@ -224,7 +241,7 @@ const SKILLS_LAYOUT_SCRIPT = `
 
 function injectSkillsLayoutScript(htmlPath) {
 	let html = readFileSync(htmlPath, 'utf8');
-	if (html.includes('layoutSkillBullets')) return;
+	if (html.includes('window.layoutSkillBullets')) return;
 	if (!html.includes('</body>')) {
 		html += SKILLS_LAYOUT_SCRIPT;
 	} else {
