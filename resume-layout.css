@@ -40,6 +40,20 @@ h2 {
 	list-style: none;
 }
 
+#skills li.skills-row {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: baseline;
+	width: 100%;
+}
+
+#skills ul:has(.skills-row) {
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+}
+
 #skills .skill-label {
 	white-space: nowrap;
 }

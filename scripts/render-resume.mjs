@@ -256,7 +256,31 @@ const SKILLS_LAYOUT_SCRIPT = `
 			}
 		}
 	};
+	const freezeSkillRows = () => {
+		layoutSkillBullets();
+		const ul = document.querySelector('#skills ul');
+		if (!ul || ul.querySelector('.skills-row')) return;
+		const items = [...ul.querySelectorAll('.skill-label, .skill-dot')].filter((el) => !el.hidden);
+		const rows = [];
+		for (const el of items) {
+			const top = Math.round(el.getBoundingClientRect().top);
+			let row = rows.find((r) => r.top === top);
+			if (!row) {
+				row = { top, nodes: [] };
+				rows.push(row);
+			}
+			row.nodes.push(el);
+		}
+		ul.replaceChildren();
+		for (const row of rows) {
+			const li = document.createElement('li');
+			li.className = 'skills-row';
+			for (const node of row.nodes) li.appendChild(node);
+			ul.appendChild(li);
+		}
+	};
 	window.layoutSkillBullets = layoutSkillBullets;
+	window.freezeSkillRows = freezeSkillRows;
 	const run = () => layoutSkillBullets();
 	if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
 	else run();
@@ -281,15 +305,13 @@ async function printResumePdf(htmlPath, pdfPath) {
 	const browser = await chromium.launch();
 	const page = await browser.newPage();
 	await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
-	await page.emulateMedia({ media: 'print' });
 	await page.setViewportSize({ width: 794, height: 1123 });
 	await page.evaluate(async () => {
 		if (document.fonts) await document.fonts.ready;
 		await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
-		if (window.layoutSkillBullets) window.layoutSkillBullets();
-		await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
-		if (window.layoutSkillBullets) window.layoutSkillBullets();
+		if (window.freezeSkillRows) window.freezeSkillRows();
 	});
+	await page.emulateMedia({ media: 'print' });
 	await page.pdf({
 		path: pdfPath,
 		format: 'A4',
