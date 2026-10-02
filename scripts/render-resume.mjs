@@ -1,6 +1,7 @@
 /**
  * Loads repo-root .env (without overriding existing env), optionally fetches
  * NASA ADS first-author stats, then runs Resumx for HTML + PDF (or watch).
+ * The phone number stays in the PDF and is removed from the HTML afterward.
  */
 import { spawnSync, spawn } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -289,6 +290,33 @@ const SKILLS_LAYOUT_SCRIPT = `
 </script>
 `;
 
+/**
+ * Remove tel: links from the HTML published online. The PDF is printed from
+ * this file first, so the number remains on the PDF.
+ *
+ * Keeps a single separator when the phone sat between two of them
+ * ("City | phone | email" → "City | email").
+ */
+function stripPhoneFromOnlineHtml(html) {
+	const phoneLink =
+		/(?:\s*[|•·]\s*)?<a\b[^>]*\bhref=(["'])tel:[^"']*\1[^>]*>[\s\S]*?<\/a>(?:\s*[|•·]\s*)?/gi;
+	return html.replace(phoneLink, (match) => {
+		const hasLeading = /^\s*[|•·]/.test(match);
+		const hasTrailing = /[|•·]\s*$/.test(match);
+		if (hasLeading && hasTrailing) return ' | ';
+		return '';
+	});
+}
+
+function stripPhoneFromOnlineResume(htmlPath) {
+	const html = readFileSync(htmlPath, 'utf8');
+	const stripped = stripPhoneFromOnlineHtml(html);
+	if (/href=(["'])tel:/i.test(stripped)) {
+		throw new Error('Phone number is still present in the online resume HTML');
+	}
+	if (stripped !== html) writeFileSync(htmlPath, stripped);
+}
+
 function injectSkillsLayoutScript(htmlPath) {
 	let html = readFileSync(htmlPath, 'utf8');
 	if (html.includes('window.layoutSkillBullets')) return;
@@ -336,7 +364,9 @@ async function main() {
 	const htmlPath = join(repoRoot, 'index.html');
 	injectSkillsLayoutScript(htmlPath);
 	await printResumePdf(htmlPath, join(repoRoot, 'resume.pdf'));
-	console.log('  PDF ✓\n');
+	stripPhoneFromOnlineResume(htmlPath);
+	console.log('  PDF ✓');
+	console.log('  HTML (phone omitted) ✓\n');
 }
 
 main().catch((err) => {
