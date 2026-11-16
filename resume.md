@@ -21,6 +21,8 @@ San Diego, CA | [+1 (619) 701-0974](tel:+16197010974) | [guillochon@gmail.com](m
 
 ### **UC Santa Cruz** <span style="font-weight: 400;">— PhD, Astronomy — Santa Cruz, CA</span> || June 2013
 
+- <span style="font-weight: 600;">Tidal-Disruption Hydrodynamics:</span> 43 piecewise-parabolic FLASH runs with multipole self-gravity of partial and full disruptions of main-sequence stars ([Feeding Rate of Black Holes by the Tidal Disruption of Stars](https://ui.adsabs.harvard.edu/abs/2013ApJ...767...25G), 2013 ApJ).
+
 ### **UC Irvine** <span style="font-weight: 400;">— BS, Physics — Irvine, CA</span> || June 2005
 
 ## Skills
@@ -82,12 +84,12 @@ San Diego, CA | [+1 (619) 701-0974](tel:+16197010974) | [guillochon@gmail.com](m
 
 ### **Harvard-Smithsonian** — NASA Einstein/ITC Fellow <span class="work-location">Cambridge, MA</span> || Sept 2013 - Aug 2018 (5 years)
 
-- <span style="font-weight: 600;">Black Hole Hydrodynamics:</span> Developed a custom FLASH adaptive-mesh module for stars encountering black holes. PhD: 43 piecewise-parabolic runs with multipole self-gravity of partial and full disruptions of low- and high-mass main-sequence stars ([Hydrodynamical Simulations to Determine the Feeding Rate of Black Holes by the Tidal Disruption of Stars](https://ui.adsabs.harvard.edu/abs/2013ApJ...767...25G), 2013 ApJ) on UCSC Pleiades, Laozi, and NASA Pleiades, with fitting formulae for mass lost, peak time, peak accretion rate, and post-peak decay. [MOSFiT](https://mosfit.rtfd.io)'s tidal-disruption model uses the simulated fallback rates. Harvard: the first MHD simulations of tidal disruptions, up to 100 million cells, at NASA Advanced Supercomputing (Ames).
-- <span style="font-weight: 600;">MOSFiT & Bayesian Modeling:</span> Developed [MOSFiT](https://mosfit.rtfd.io), a Bayesian engine for fitting transient light curves to data.
+- <span style="font-weight: 600;">MHD Tidal Disruptions:</span> First MHD simulations of stars disrupted by black holes, with a custom FLASH module, reaching 100 million cells on NASA Advanced Supercomputing (Ames).
 - <span style="font-weight: 600;">Research Leadership:</span> Technical lead of an eight-person team of students and postdocs; [dozens of projects](https://ui.adsabs.harvard.edu/search/q=guillochon%2C%20james&sort=date%20desc%2C%20bibcode%20desc&p_=0) with 10k+ citations.
 - <span style="font-weight: 600;">Science Communication:</span> [NOVA](http://www.pbs.org/wgbh/nova/space/black-hole-apocalypse.html) (2018), on measuring a black hole's mass from a destroyed star.
 - <span style="font-weight: 600;">Open Astronomy Catalogs:</span> Led the [Open Astronomy Catalogs](https://astrocats.space), a data-sharing platform with a user-facing frontend and an API.
 
 ## Projects
 
-- <span style="font-weight: 600;">[Shaderous](https://guillochon.github.io/shaderous/):</span> 3D finite-volume gas dynamics and ideal MHD in the browser ([source](https://github.com/guillochon/shaderous)). Fluid and gravity are WGSL compute shaders on WebGPU, and the timestep and block scheduling stay on the GPU: unsplit MUSCL-Hancock (third-order reconstruction, HLLC fluxes), van Leer MHD with constrained transport (HLLD or HLLE), multigrid Poisson gravity, and block-structured AMR, for shocks, self-gravitating stars, tidal disruptions, and ideal-gas to degenerate equations of state.
+- <span style="font-weight: 600;">[Shaderous](https://guillochon.github.io/shaderous/):</span> Browser hydrodynamics and ideal MHD on WebGPU, with adaptive mesh refinement ([source](https://github.com/guillochon/shaderous)).
+- <span style="font-weight: 600;">[MOSFiT](https://mosfit.rtfd.io):</span> Bayesian engine for fitting transient light curves; the tidal-disruption model uses the FLASH fallback rates.
