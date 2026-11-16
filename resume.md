@@ -91,4 +91,4 @@ San Diego, CA | [+1 (619) 701-0974](tel:+16197010974) | [guillochon@gmail.com](m
 
 - <span style="font-weight: 600;">[Shaderous](https://guillochon.github.io/shaderous/):</span> Browser hydrodynamics and ideal MHD on WebGPU, with adaptive mesh refinement ([source](https://github.com/guillochon/shaderous)).
 - <span style="font-weight: 600;">[MOSFiT](https://mosfit.rtfd.io):</span> Bayesian engine for fitting transient light curves; the tidal-disruption model uses the FLASH fallback rates.
-- <span style="font-weight: 600;">[FLASH Hydrodynamics](https://scixplorer.org/abs/2013ApJ...767...25G/abstract):</span> 3D adaptive-mesh hydrodynamics with multipole self-gravity; 43-run parameter study.
+- <span style="font-weight: 600;">[FLASH](https://scixplorer.org/search?q=author%3A%22Guillochon%2C+J%22+full%3AFLASH):</span> 3D adaptive-mesh hydrodynamics and ideal MHD with self-gravity across PhD and postdoc simulations.
