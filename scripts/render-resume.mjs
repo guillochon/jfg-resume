@@ -56,13 +56,13 @@ function wrapHIndexInt(n) {
 	return `<span>${inner}</span>`;
 }
 
-function adsUiSearchUrl(q) {
+function scixSearchUrl(q) {
 	const params = new URLSearchParams({
 		q,
 		sort: 'citation_count desc',
 		p_: '0',
 	});
-	return `https://ui.adsabs.harvard.edu/search/?${params.toString()}`;
+	return `https://scixplorer.org/search?${params.toString()}`;
 }
 
 /**
@@ -158,8 +158,8 @@ async function maybeBuildStatsLine() {
 	const citeSumFirstAuthor = firstAuthor.totalCitations;
 	const h = hIndex(firstAuthor.citationCounts);
 
-	const allUrl = adsUiSearchUrl(allPubsQ);
-	const firstUrl = adsUiSearchUrl(firstAuthorQ);
+	const allUrl = scixSearchUrl(allPubsQ);
+	const firstUrl = scixSearchUrl(firstAuthorQ);
 	const totalLinked = `**${wrapGroupedInt(totalPublications)}**`;
 	const parenLinked = `**${wrapGroupedInt(firstAuthor.numFound)}** first author w/ **${wrapGroupedInt(citeSumFirstAuthor)}** citations, h-index ${wrapHIndexInt(h)}`;
 	return `Publications: [${totalLinked}](${allUrl}) ([${parenLinked}](${firstUrl}))`;
