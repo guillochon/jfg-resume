@@ -34,7 +34,7 @@ npm run build
 
 Outputs are written to repo root:
 - [`resume.pdf`](resume.pdf)
-- [`index.html`](index.html)
+- [`index.html`](index.html), with a screen-only **Download as PDF** link under the name. It points at `resume.pdf` (saved as `James_Guillochon_Resume.pdf`) and is hidden when printing.
 
 ## Live Preview
 
@@ -48,7 +48,7 @@ While watching, Resumx writes `index.pdf` alongside `index.html` (shared basenam
 
 This repo includes [`pages.yml`](.github/workflows/pages.yml) that:
 - builds `index.html` and `resume.pdf`
-- deploys them to GitHub Pages as `index.html` and `resume.pdf`
+- deploys them to GitHub Pages as `index.html` and `resume.pdf` (`/jfg-resume/resume.pdf`)
 
 To enable it in GitHub:
 1. Go to **Settings → Pages**
