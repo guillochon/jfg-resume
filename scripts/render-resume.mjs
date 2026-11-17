@@ -2,6 +2,8 @@
  * Loads repo-root .env (without overriding existing env), optionally fetches
  * NASA ADS first-author stats, then runs Resumx for HTML + PDF (or watch).
  * The phone number stays in the PDF and is removed from the HTML afterward.
+ * The online HTML gets a screen-only "Download as PDF" link to resume.pdf.
+ * Print CSS hides that link, including in the Playwright PDF render.
  */
 import { spawnSync, spawn } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -14,6 +16,8 @@ const resumxEntry = join(repoRoot, 'node_modules', '@resumx', 'resumx', 'dist', 
 
 const DEFAULT_FIRST_AUTHOR_QUERY = 'author:"^Guillochon, J"';
 const DEFAULT_ALL_PUBLICATIONS_QUERY = 'author:"Guillochon, J"';
+const PDF_HREF = 'resume.pdf';
+const PDF_DOWNLOAD_NAME = 'James_Guillochon_Resume.pdf';
 const ADS_API = 'https://api.adsabs.harvard.edu/v1/search/query';
 const PAGE_SIZE = 2000;
 
@@ -314,7 +318,31 @@ function stripPhoneFromOnlineResume(htmlPath) {
 	if (/href=(["'])tel:/i.test(stripped)) {
 		throw new Error('Phone number is still present in the online resume HTML');
 	}
+	if (!stripped.includes('class="pdf-download"') || !stripped.includes(`href="${PDF_HREF}"`)) {
+		throw new Error('PDF download link is missing from the online resume HTML');
+	}
 	if (stripped !== html) writeFileSync(htmlPath, stripped);
+}
+
+function pdfDownloadMarkup() {
+	return `<p class="pdf-download"><a href="${PDF_HREF}" download="${PDF_DOWNLOAD_NAME}">Download as PDF</a></p>`;
+}
+
+/**
+ * Insert a download link directly under the name. The published Pages site
+ * already includes resume.pdf next to index.html, so a relative href resolves
+ * both locally and at /jfg-resume/resume.pdf.
+ */
+function injectPdfDownloadLink(htmlPath) {
+	let html = readFileSync(htmlPath, 'utf8');
+	if (html.includes('class="pdf-download"')) return;
+	const h1Close = html.indexOf('</h1>');
+	if (h1Close === -1) {
+		throw new Error('Resume HTML has no name heading to attach the PDF download link');
+	}
+	const at = h1Close + '</h1>'.length;
+	html = `${html.slice(0, at)}\n\t\t${pdfDownloadMarkup()}${html.slice(at)}`;
+	writeFileSync(htmlPath, html);
 }
 
 function injectSkillsLayoutScript(htmlPath) {
@@ -339,7 +367,9 @@ async function printResumePdf(htmlPath, pdfPath) {
 		await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
 		if (window.freezeSkillRows) window.freezeSkillRows();
 	});
+	await assertPdfDownloadLink(page, 'screen');
 	await page.emulateMedia({ media: 'print' });
+	await assertPdfDownloadLink(page, 'print');
 	await page.pdf({
 		path: pdfPath,
 		format: 'A4',
@@ -347,6 +377,34 @@ async function printResumePdf(htmlPath, pdfPath) {
 		preferCSSPageSize: true,
 	});
 	await browser.close();
+}
+
+async function assertPdfDownloadLink(page, media) {
+	const link = page.locator('.pdf-download');
+	const count = await link.count();
+	if (count !== 1) {
+		throw new Error(`Expected one PDF download link, found ${count}`);
+	}
+	const anchor = link.locator('a');
+	const href = await anchor.getAttribute('href');
+	const download = await anchor.getAttribute('download');
+	const text = (await anchor.innerText()).replace(/\s+/g, ' ').trim();
+	if (href !== PDF_HREF) {
+		throw new Error(`PDF download link points at ${href}, expected ${PDF_HREF}`);
+	}
+	if (download !== PDF_DOWNLOAD_NAME) {
+		throw new Error(`PDF download filename is ${download}, expected ${PDF_DOWNLOAD_NAME}`);
+	}
+	if (text !== 'Download as PDF') {
+		throw new Error(`PDF download link text is "${text}"`);
+	}
+	const visible = await link.isVisible();
+	if (media === 'screen' && !visible) {
+		throw new Error('PDF download link is hidden on screen');
+	}
+	if (media === 'print' && visible) {
+		throw new Error('PDF download link is visible when printing');
+	}
 }
 
 async function main() {
@@ -363,6 +421,7 @@ async function main() {
 	runResumx('html', 'index', varPair, false);
 	const htmlPath = join(repoRoot, 'index.html');
 	injectSkillsLayoutScript(htmlPath);
+	injectPdfDownloadLink(htmlPath);
 	await printResumePdf(htmlPath, join(repoRoot, 'resume.pdf'));
 	stripPhoneFromOnlineResume(htmlPath);
 	console.log('  PDF ✓');

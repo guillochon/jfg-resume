@@ -5,6 +5,7 @@ style:
   font-size: 9.4pt
 css:
   - resume-layout.css
+  - resume-print.css
 ---
 
 # James Guillochon
